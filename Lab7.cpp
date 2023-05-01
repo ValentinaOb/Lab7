@@ -238,8 +238,6 @@ T3* e6(T3 v[], T3 n, T3 vv[]) {
 
 	return v;
 }
-
-
 int main3()
 {
 	int V[] = { 1,2,3,4,5,5,6,7,8,9 };
@@ -324,7 +322,6 @@ int main4()
 
 	return 0;
 }
-
 
 
 
