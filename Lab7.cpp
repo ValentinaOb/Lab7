@@ -304,7 +304,7 @@ private:
 		T4 data;
 		Node* left;
 		Node* right;
-	}
+	};
 	Node* root = nullptr;
 
 
