@@ -3,6 +3,8 @@
 #include <string>
 #include <complex>
 #include <algorithm>
+#include <iterator>
+#include <initializer_list>
 using namespace std;
 
 
@@ -294,34 +296,137 @@ int main3()
 */
 
 
+template <class T4>
+class Tree {
+
+private:
+	struct Node {
+		T4 data;
+		Node* left;
+		Node* right;
+	}
+	Node* root = nullptr;
+
+
+public:
+	// Constructors
+	Tree() = default;
+	Tree(initializer_list<T4> initlist);
+	Tree(const Tree& other);
+	Tree(Tree&& other) noexcept;
+
+	// Destructor
+	~Tree();
+
+	// Operators
+
+};
+
+
+class Base
+{
+protected:
+	int dat;
+	double a[5] = { 1,2,3,4,5 };
+public:
+	Base() : dat(1) {}
+	Base(int d) : dat(d) {}
+};
+
+class D1 : protected Base
+{
+protected:
+	int d1;
+public:
+	D1() : d1(1) {}
+	D1(int d) : d1(d) {}
+	D1(int d, int dt) : Base(dt), d1(d) {}
+};
+class D2 : protected Base
+{
+protected:
+	double d2;
+public:
+	D2() : d2(1) {}
+	D2(int d) : d2(d) {}
+	D2(int a, double dt) : Base(a), d2(dt) {}
+};
+class D3 : protected D1
+{
+protected:
+	double dt;
+public:
+	D3() : dt(1) {}
+	D3(int d) : dt(d) {}
+	D3(int a, int b, int c, double d, int e) : D1(a, b), dt(e) {}
+
+	void showDat()
+    {
+        std::cout << "D3::D1::Base::dat = " << D3::D1::Base::dat << std::endl;
+        std::cout << "Base::dat = " << Base::dat << std::endl;
+    }
+};
+class D4 : protected D2
+{
+protected:
+	double dt;
+public:
+	D4() : dt(1) {}
+	D4(int d) : dt(d) {}
+	D4(int a, int b, int e) : D2(a, b), dt(e) {}
+
+	void showDat()
+	{
+		std::cout << "D4::D2::Base::dat = " << D4::D2::Base::dat << std::endl;
+		std::cout << "Base::dat = " << Base::dat << std::endl;
+	}
+};
+class D5 : protected D1, protected D2
+{
+protected:
+	double dt;
+public:
+	D5() : dt(1) {}
+	D5(int d) : dt(d) {}
+	D5(int a, int b, int c, double d, int e) : D1(a, b), D2(a, c), dt(e) {}
+
+	void showDat()
+	{
+		std::cout << "D5::D1::Base::dat = " << D5::D1::Base::dat << std::endl;
+		std::cout << "D5::D2::Base::dat = " << D5::D2::Base::dat << std::endl;
+		std::cout << "Base::dat = " << Base::dat << std::endl;
+	}
+};
+
+
 
 int main4()
 {
-	int V[] = { 1,2,3,4,5,5,6,7,8,9 };
-	float V1[] = { 1.0,2.0,2.1,3.0,5.0,5.4,6.2,7.0,8.0,9.0 };
+	D3 a, b(1, 2, 3, 4.5, 5);
+	D4 a1, b1(1, 2, 3);
+	D5 a2, b2(1, 2, 3, 4.5, 5);
 
-	cout << "V: ";
-	for (int i = 0; i < 10; i++) {
-		cout << V[i] << " ";
-	}
-	cout << endl;
+	std::cout << "Test !\n";
+	std::cout << "Size for Base " << sizeof(Base) << std::endl;
 
-	int* b[10];
-	*b = e(V, 10);
-	cout << "B: " << b << endl;
+	std::cout << "Size for D1 " << sizeof(D1) << std::endl;
+	std::cout << "Size for D2 " << sizeof(D2) << std::endl;
 
-	int b1;
-	b1 = el(V, 10);
-	if (b1 == -1) { cout << "No" << endl; }
-	else
-		cout << "[]: " << b1 << endl;
+	std::cout << "Size for D3 " << sizeof(D3) << std::endl;
+	std::cout << "Size for D4 " << sizeof(D4) << std::endl;
+
+	std::cout << "Size for D5 " << sizeof(D5) << std::endl;
 
 
+	b.showDat();
 
+
+	cout << " !!!\n";
 
 
 	return 0;
 }
+
 
 
 
