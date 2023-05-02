@@ -175,7 +175,7 @@ int main2()
 */
 
 template <class T3>
-T3* e(T3 v[], T3 n) {
+T3* e(T3* v, int n) {
 
 	for (int i = 0; i < n; i++) {
 		v[i] = 0;
@@ -184,7 +184,7 @@ T3* e(T3 v[], T3 n) {
 	return v;
 }
 template <class T3>
-T3 e1(T3 v[], T3 n) {
+T3 e1(T3* v, int n) {
 
 	T3 k;
 	int b = -1;
@@ -200,12 +200,12 @@ T3 e1(T3 v[], T3 n) {
 	return b;
 }
 template <class T3>
-T3* e2(T3 v[], T3 n) {
+T3* e2(T3* v, int n) {
 
 	return v;
 }
 template <class T3>
-T3* e3(T3 v[], T3 n, T3 vv[]) {
+T3* e3(T3* v, int n, T3* vv) {
 
 	for (int i = 0; i < n; i++) {
 		v[i] = v[i] + vv[i];
@@ -214,7 +214,7 @@ T3* e3(T3 v[], T3 n, T3 vv[]) {
 	return v;
 }
 template <class T3>
-T3* e4(T3 v[], T3 n, T3 vv[]) {
+T3* e4(T3* v, int n, T3* vv) {
 
 	for (int i = 0; i < n; i++) {
 		v[i] += vv[i];
@@ -223,7 +223,7 @@ T3* e4(T3 v[], T3 n, T3 vv[]) {
 	return v;
 }
 template <class T3>
-T3* e5(T3 v[], T3 n, T3 vv[]) {
+T3* e5(T3* v, int n, T3* vv) {
 
 	for (int i = 0; i < n; i++) {
 		v[i] = v[i] - vv[i];
@@ -232,7 +232,7 @@ T3* e5(T3 v[], T3 n, T3 vv[]) {
 	return v;
 }
 template <class T3>
-T3* e6(T3 v[], T3 n, T3 vv[]) {
+T3* e6(T3* v, int n, T3* vv) {
 
 	for (int i = 0; i < n; i++) {
 		v[i] -= vv[i];
@@ -240,6 +240,7 @@ T3* e6(T3 v[], T3 n, T3 vv[]) {
 
 	return v;
 }
+
 int main3()
 {
 	int V[] = { 1,2,3,4,5,5,6,7,8,9 };
@@ -283,7 +284,6 @@ int main3()
 	*b6 = e6(V, 10, VV);
 	cout << "-=: " << b6 << endl;
 
-
 	return 0;
 }
 
@@ -319,7 +319,8 @@ public:
 	~Tree();
 
 	// Operators
-
+	Tree& operator=(const Tree& other);
+	Tree& operator=(const Tree&& other)noexcept;
 };
 
 
@@ -426,7 +427,6 @@ int main4()
 
 	return 0;
 }
-
 
 
 
