@@ -307,6 +307,15 @@ private:
 	};
 	Node* root = nullptr;
 
+	// Recursive Methods
+	template <typename Func>
+	void DoForNode(const Node* node, Func function) const;
+
+	void RemoveSubTree(Node* node);
+	Node* Delete(Node* node, const T4& value);
+	Node* FindMinimum(Node* node);
+	size_t Size(const Node* node) const;
+	void CopyTree(Node*& tree1, Node* const& tree2);
 
 public:
 	// Constructors
@@ -320,8 +329,157 @@ public:
 
 	// Operators
 	Tree& operator=(const Tree& other);
-	Tree& operator=(const Tree&& other)noexcept;
+	Tree& operator=(Tree&& other)noexcept;
+
+	//Methods
+	template <typename Func>
+	void DoForAllElements(Func function) const;
+
+	bool Insert(const T4& value);
+	void Clear();
+	void Delete(const T4& value);
+	const T4* Find(const T4& value) const;
+	bool IsEmpty() const;
+	size_t Size() const;
 };
+
+template <class T4>
+void Show(const Tree<T4>& tree) {
+	cout << "Tree elements: ";
+	tree.DoForAllElements(ShowValue<T4>);
+	cout << "\n";
+}
+
+template <class T4>
+size_t Tree<T4>::Size(const Node* node) const {
+	return node == nullptr ? 0 : Size(node->left) + 1 + Size(node->right);
+}
+
+template <class T4>
+void Tree<T4>::CopyTree(Node*& tree1, Node* const& tree2) {
+	if (tree2 == nulptr) {
+		return;
+	}
+	tree1 = new Node{ tree->data };
+	CopyTree(tree1->left, tree2->left);
+	CopyTree(tree1->right, tree2->right);
+}
+
+template <class T4>
+Tree<T4>::Tree(initializer_list<T4> initList) {
+	for (const T4* value = initList.begin(); value != initList.end(); ++value) {
+		Insert(*value);
+	}
+}
+
+template <class T4>
+Tree<T4>::Tree(const Tree& other) {
+	CopyTree(this->root, other.root);
+}
+
+template <class T4>
+Tree<T4>::Tree(Tree&& other) noexcept 
+	: root(other.root){
+	other.root = nullptr;
+}
+
+template <class T4>
+Tree<T4>::~Tree() {
+	Clear();
+}
+
+template <class T4>
+Tree<T4>& Tree<T4>::operator=(const Tree& other) {
+	if (this != &other) {
+		Clear();
+		rCopyTree(this->root, other.root);
+	}
+	return *this;
+}
+
+template <class T4>
+Tree<T4>& Tree<T4>::operator=(Tree&& other) noexcept {
+	if (this != &other) {
+		Clear();
+		root = other.root;
+		other.root = nullptr;
+	}
+	return *this;
+}
+
+template <class T4>
+template <typename Func>
+void Tree<T4>::DoForAllElements(Func function) const {
+	DoForNode(root, function);
+}
+
+template <class T4>
+bool Tree<T4>::Insert(const T4& value) {
+	if (root-- nullptr)
+	{
+		root = new Node{ value };
+		return true;
+	}
+
+	Node* node = root;
+	while (node != nullptr) {
+		if (node->data > value) {
+			return false;
+		}
+		else if (node->data > value) {
+			if (node->left == nullptr) {
+				node->left = new Node{ value, nullptr, nullptr };
+				return true;
+			}
+			node = node->left;
+		}
+		else {
+			if (node->right == nullptr) {
+				node->right = new Node{ value, nullptr, nullptr };
+				return true;
+			}
+			node = node->right;
+		}
+	}
+	return false;
+}
+
+
+template <class T4>
+void Tree<T4>::Clear() {
+	if (root != nullptr) {
+		RemoveSubTree(root);
+		root = nullptr;
+	}
+}
+
+template <class T4>
+void Delete(const T4& value) {
+	root = Delete(root, value);
+}
+
+template <class T4>
+void Tree <T4>::RemoveSubTree(Node* node) {
+	if (node->left != nullptr) {
+		RemoveSubTree(node->left);
+	}
+
+	if (node->right != nullptr) {
+		RemoveSubTree(node->right);
+	}
+
+	delete node;
+}
+
+template <class T4>
+bool Tree<T4>::IsEmpty()const {
+	return root = nullptr;
+}
+
+template <class T4>
+size_t Tree<T4>::Size()const {
+	return Size(root);
+}
 
 
 class Base
@@ -403,6 +561,77 @@ public:
 
 int main4()
 {
+	// Constructors
+
+	{
+		Tree<int> tree1;	// default constructor
+		Show(tree1);
+
+		Tree<int> tree2{ 1, 2, 3, 4, 5, 6 };	// initializer_list
+		Show(tree1);
+
+		Tree<int> tree3(tree2);	// copy constructor
+		Show(tree3);
+
+		Tree<int> tree4(move(tree3));	// move constructor
+		Show(tree4);
+		Show(tree3);
+	}
+
+
+	// Operators
+	{
+		Tree<int> tree1{ 1, 2, 3, 4, 5 };
+		Tree<int> tree2{ 10, 20, 30 };
+
+		Show(tree1);
+		Show(tree2);
+
+		tree2 = tree1; // copy assignment operator
+
+		Show(tree1);
+		Show(tree2);
+
+		Tree<int> tree3{ 11, 22, 33, 44, 55 };
+		Tree<int> tree4{ 100, 200, 300 };
+
+		Show(tree3);
+		Show(tree4);
+
+		tree4 = move(tree3); // move assignment operator
+
+		Show(tree3);
+		Show(tree4);
+	}
+
+	// Methods
+	Tree<double> tree1{ 1.1,2.2,3.3,4.4,5.5 };
+
+	if (!tree1.IsEmpty()) { // Method 1
+		cout << "Tree 1 isn't empty \n";
+	}
+	cout << "Size of Tree 1: " << tree1.Size() << "\n"; // Method 2
+	tree1.Clear(); // Method 3
+	if (tree1.IsEmpty()) {
+		cout << "Tree 1 is empty now \n";
+	}
+
+	tree1.Insert(10.5); // Method 4
+	tree1.Insert(2.8);
+	tree1.Insert(1.2);
+	tree1.Insert(3.6);
+	tree1.Insert(7.8);
+
+	cout << "Tree 1 elements: ";
+	tree1.DoForAllElements(ShowValue<double>); // Method 5
+
+	const double* foundValue = tree1.Find(2.8); ; // Method 6
+	if (foundValue != nullptr) {
+		cout << "Tree 1 has " << *foundValue << endl;
+	}
+
+
+
 	D3 a, b(1, 2, 3, 4.5, 5);
 	D4 a1, b1(1, 2, 3);
 	D5 a2, b2(1, 2, 3, 4.5, 5);
