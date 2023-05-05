@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <string>
 #include <complex>
-#include <algorithm>
 #include <iterator>
-#include <initializer_list>
+#include <stack>
+#include <algorithm>
 using namespace std;
 
 
@@ -295,183 +295,92 @@ int main3()
 програму, яка проходить по бінарному дереву використовуючи ітератор.
 */
 
-int t = 0;
-int k = 0;
-
-
-
-// !!!
-
 struct Node {
-	int Data;
-	Node* Left;
-	Node* Right;
+	int data;
+	Node* left;
+	Node* right;
 };
 
-void Add(int aData, Node*& aNode){
-	if (!aNode) {
-		aNode = new Node;
-		aNode->Data = aData;
-		aNode->Left = 0;
-		aNode->Right = 0;
-		return;
-	}
-	else
-		if (aNode->Data > aData) {
-			Add(aData, aNode->Left);
-		}
-		else {
-			Add(aData, aNode->Right);
-		}
+Node* newNode(int data)
+{
+	Node* node = new Node;
+	node->data = data;
+	node->left = node->right = NULL;
+	return node;
 }
 
-void print(Node* aNode) {
-	if (!aNode) return;
-	t += 5;
+class Iterator {
+private:
+	stack<Node*> traversal;
 
-	print(aNode->Left);
-
-	for (int i = 0; i < t; i++)cout << " ";
-	cout << aNode->Data << endl;
-
-	print(aNode->Right);
-
-	t -= 5;
-	return;
-}
-
-void pr(Node*& aNode) {
-	if (NULL == aNode) return;
-
-	cout << aNode->Data << endl;
-	pr(aNode->Left);
-	pr(aNode->Right);
-}
-
-void Empty(Node* aNode) {
-	if (!aNode) {
-		cout << "Empty ";
-	}
-	else cout << "Not Empty ";
-}
-
-void Free(Node* aNode) {
-	if (!aNode) return;
-	Free(aNode->Left);
-	Free(aNode->Right);
-	delete aNode;
-
-	return;
-}
-
-
-
-
-
-class Base
-{
-protected:
-	int dat;
-	double a[5] = { 1,2,3,4,5 };
 public:
-	Base() : dat(1) {}
-	Base(int d) : dat(d) {}
-};
-class D1 : protected Base
-{
-protected:
-	int d1;
-public:
-	D1() : d1(1) {}
-	D1(int d) : d1(d) {}
-	D1(int d, int dt) : Base(dt), d1(d) {}
-};
-class D2 : protected Base
-{
-protected:
-	double d2;
-public:
-	D2() : d2(1) {}
-	D2(int d) : d2(d) {}
-	D2(int a, double dt) : Base(a), d2(dt) {}
-};
-class D3 : protected D1
-{
-protected:
-	double dt;
-public:
-	D3() : dt(1) {}
-	D3(int d) : dt(d) {}
-	D3(int a, int b, int c, double d, int e) : D1(a, b), dt(e) {}
-
-	void showDat()
-    {
-        std::cout << "D3::D1::Base::dat = " << D3::D1::Base::dat << std::endl;
-        std::cout << "Base::dat = " << Base::dat << std::endl;
-    }
-};
-class D4 : protected D2
-{
-protected:
-	double dt;
-public:
-	D4() : dt(1) {}
-	D4(int d) : dt(d) {}
-	D4(int a, int b, int e) : D2(a, b), dt(e) {}
-
-	void showDat()
+	Iterator(Node* root)
 	{
-		std::cout << "D4::D2::Base::dat = " << D4::D2::Base::dat << std::endl;
-		std::cout << "Base::dat = " << Base::dat << std::endl;
+		Left(root);
 	}
-};
-class D5 : protected D1, protected D2
-{
-protected:
-	double dt;
-public:
-	D5() : dt(1) {}
-	D5(int d) : dt(d) {}
-	D5(int a, int b, int c, double d, int e) : D1(a, b), D2(a, c), dt(e) {}
 
-	void showDat()
+	void Left(Node* current)
 	{
-		std::cout << "D5::D1::Base::dat = " << D5::D1::Base::dat << std::endl;
-		std::cout << "D5::D2::Base::dat = " << D5::D2::Base::dat << std::endl;
-		std::cout << "Base::dat = " << Base::dat << std::endl;
+		while (current) {
+			traversal.push(current);
+			current = current->left;
+		}
+	}
+
+	bool hasNext()
+	{
+		return !traversal.empty();
+	}
+
+	Node* next()
+	{
+		Node* current = traversal.top();
+		traversal.pop();
+
+		if (current->right)
+			Left(current->right);
+
+		return current;
 	}
 };
-
-
 
 int main4()
 {
-	D3 a, b(1, 2, 3, 4.5, 5);
-	D4 a1, b1(1, 2, 3);
-	D5 a2, b2(1, 2, 3, 4.5, 5);
+	int a,b,c,d,e,f;
+	cout << "Input root: ";
+	cin >> a;
+	cout << "Input root->right: ";
+	cin >> b;
+	cout << "Input root->left: ";
+	cin >> c;
+	cout << "Input root->left->left: ";
+	cin >> d;
+	cout << "Input root->left->right: ";
+	cin >> e;
+	cout << "Input root->left->right->right: ";
+	cin >> f;
 
-	std::cout << "Test !\n";
-	std::cout << "Size for Base " << sizeof(Base) << std::endl;
+	Node* root = newNode(a);
+	root->right = newNode(b);
+	root->left = newNode(c);
+	root->left->left = newNode(d);
+	root->left->right = newNode(e);
+	root->left->right->right = newNode(f);
 
-	std::cout << "Size for D1 " << sizeof(D1) << std::endl;
-	std::cout << "Size for D2 " << sizeof(D2) << std::endl;
+	Iterator itr(root);
 
-	std::cout << "Size for D3 " << sizeof(D3) << std::endl;
-	std::cout << "Size for D4 " << sizeof(D4) << std::endl;
-
-	std::cout << "Size for D5 " << sizeof(D5) << std::endl;
-
-
-	b.showDat();
-
-
-	cout << " !!!\n";
-
-	Add;
-	print;
-	pr;
-	Empty;
-	Free;
+	cout << itr.next()->data << " ";
+	if(itr.hasNext()==1) cout << "true "; 
+	else cout << "false ";
+	cout << itr.next()->data << " ";
+	cout << itr.next()->data << " ";
+	cout << itr.next()->data << " ";
+	if (itr.hasNext() == 1) cout << "true ";
+	else cout << "false ";
+	cout << itr.next()->data << " ";
+	cout << itr.next()->data << " ";
+	if (itr.hasNext() == 1) cout << "true ";
+	else cout << "false ";
 
 	return 0;
 }
