@@ -300,7 +300,6 @@ struct Node {
 	Node* left;
 	Node* right;
 };
-
 Node* newNode(int data)
 {
 	Node* node = new Node;
@@ -308,7 +307,6 @@ Node* newNode(int data)
 	node->left = node->right = NULL;
 	return node;
 }
-
 class Iterator {
 private:
 	stack<Node*> traversal;
@@ -343,7 +341,6 @@ public:
 		return current;
 	}
 };
-
 int main4()
 {
 	int a,b,c,d,e,f;
@@ -381,6 +378,7 @@ int main4()
 	cout << itr.next()->data << " ";
 	if (itr.hasNext() == 1) cout << "true ";
 	else cout << "false ";
+	cout << "\n";
 
 	return 0;
 }
