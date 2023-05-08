@@ -100,7 +100,6 @@ int main1()
 	return 0;
 }
 
-
 /*
 Написати функцію-шаблон функцію впорядкування методом
 швидкого впорядкування. Написати специфікацію функції-шаблон для
@@ -178,86 +177,10 @@ int main2()
 	return 0;
 }
 
-
 /*
 Створити параметризований масив з конструкторами,
 деструктором і перевантаженими операторами [], =, +, +=,-,-=.
 */
-
-template <typename T3>
-class Vec {
-	T3 a[10];
-public:
-
-	T3 ee(T3* v) {
-		T3 r,b;
-		for (int i = 0; i < 10; i++) {
-			r.a[i] = a[i] + b.a[i];
-			return r;
-		}
-	}
-	T3 e(int n) {
-		for (int i = 0; i < n; i++) {
-			a[i] = 0;
-		}
-	}
-	T3 e1(T3& b, int n) {
-		T3 k;
-		int l = -1;
-		cout << "Input k: ";
-		cin >> k;
-
-		for (int i = 0; i < n; i++) {
-			if (a[i] == k) {
-				l = a[i];
-			}
-		}
-		return l;
-	}
-	T3 e2(T3& b, int n) {
-
-		return b;
-	}
-	T3 e3(T3& b, int n, T3& r) {
-
-		for (int i = 0; i < n; i++) {
-			a[i] = b.a[i] + r.a[i];
-		}
-
-		return a;
-	}
-	T3 e4(T3& b, int n, T3& r) {
-
-		for (int i = 0; i < n; i++) {
-			b.a[i] += r.v[i];
-		}
-		return b;
-	}
-	T3 e5(T3& b, int n, T3& r) {
-
-		for (int i = 0; i < n; i++) {
-			b.a[i] = b.a[i] - r.a[i];
-		}
-		return b;
-	}
-	T3 e6(T3& b, int n, T3& r) {
-
-		for (int i = 0; i < n; i++) {
-			b.a[i] -= r.a[i];
-		}
-		return b;
-	}
-
-};
-
-int main0() {
-	Vec<int> a, b, c;
-	int V[] = { 1,2,3,4,5,5,6,7,8,9 };
-	int q[10];
-	
-
-	return 0;
-}
 
 template <class T3>
 void e(T3* v, int n) {
@@ -429,8 +352,6 @@ int main3()
 
 	return 0;
 }
-
-
 
 /*
 Побудувати клас, що описує бінарне дерево стандартної форми.
