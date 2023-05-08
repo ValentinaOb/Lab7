@@ -262,7 +262,6 @@ void e6(T3* v, int n, T3* vv) {
 
 	return;
 }
-
 int main3()
 {
 	int V[] = { 1,2,3,4,5,5,6,7,8,9 };
