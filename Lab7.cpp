@@ -270,8 +270,6 @@ int main3()
 	float V1[] = { 1.1, 2.2, 3.3, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9 };
 	float VV1[] = { 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 };
 
-	Vec<int> a(), VecObj;
-
 	cout << "V: ";
 	for (int i = 0; i < 10; i++) {
 		cout << V[i] << " ";
@@ -349,6 +347,7 @@ int main3()
 	cout << "\nB: " << endl;
 	e(V1, 10);
 
+	cout << endl;
 
 	return 0;
 }
