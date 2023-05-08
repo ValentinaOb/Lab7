@@ -189,17 +189,73 @@ class Vec {
 	T3 a[10];
 public:
 
-	T3 operator +(T3& b) {
-		T3 r;
+	T3 ee(T3& b) {
+		T3 r[10];
 		for (int i = 0; i < 10; i++) {
 			r.a[i] = a[i] + b.a[i];
 			return r;
 		}
 	}
+	T3 e(int n) {
+		for (int i = 0; i < n; i++) {
+			a[i] = 0;
+		}
+	}
+	T3 e1(T3& b, int n) {
+		T3 k;
+		int l = -1;
+		cout << "Input k: ";
+		cin >> k;
 
+		for (int i = 0; i < n; i++) {
+			if (v[i] == k) {
+				l = a[i];
+			}
+		}
+		return l;
+	}
+	T3 e2(T3& b, int n) {
+
+		return b;
+	}
+	T3 e3(T3& b, int n, T3& r) {
+
+		for (int i = 0; i < n; i++) {
+			a[i] = b.a[i] + r.a[i];
+		}
+
+		return a;
+	}
+	T3 e4(T3& b, int n, T3& r) {
+
+		for (int i = 0; i < n; i++) {
+			b.a[i] += r.v[i];
+		}
+		return b;
+	}
+	T3 e5(T3& b, int n, T3& r) {
+
+		for (int i = 0; i < n; i++) {
+			b.a[i] = b.a[i] - r.a[i];
+		}
+		return b;
+	}
+	T3 e6(T3& b, int n, T3& r) {
+
+		for (int i = 0; i < n; i++) {
+			b.a[i] -= r.a[i];
+		}
+		return b;
+	}
 
 };
 
+int main3() {
+	Vec<int> a, b, c;
+	int V[] = { 1,2,3,4,5,5,6,7,8,9 };
+
+	return 0;
+}
 
 template <class T3>
 T3* e(T3* v, int n) {
@@ -267,15 +323,6 @@ T3* e6(T3* v, int n, T3* vv) {
 
 	return v;
 }
-
-int main3() {
-	Vec<int> a, b, c;
-	int V[] = { 1,2,3,4,5,5,6,7,8,9 };
-	a = b + c;
-
-	return 0;
-}
-
 
 int main0()
 {
