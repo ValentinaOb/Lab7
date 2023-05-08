@@ -189,8 +189,8 @@ class Vec {
 	T3 a[10];
 public:
 
-	T3 ee(T3& b) {
-		T3 r[10];
+	T3 ee(T3* v) {
+		T3 r,b;
 		for (int i = 0; i < 10; i++) {
 			r.a[i] = a[i] + b.a[i];
 			return r;
@@ -253,21 +253,24 @@ public:
 int main0() {
 	Vec<int> a, b, c;
 	int V[] = { 1,2,3,4,5,5,6,7,8,9 };
+	int q[10];
+	
 
 	return 0;
 }
 
 template <class T3>
-T3* e(T3* v, int n) {
+void e(T3* v, int n) {
 
 	for (int i = 0; i < n; i++) {
 		v[i] = 0;
+		cout << v[i] << " ";
 	}
 
-	return v;
+	return;
 }
 template <class T3>
-T3 e1(T3* v, int n) {
+int e1(T3* v, int n) {
 
 	T3 k;
 	int b = -1;
@@ -276,52 +279,65 @@ T3 e1(T3* v, int n) {
 
 	for (int i = 0; i < n; i++) {
 		if (v[i] == k) {
-			b = v[i];
+			b = i;
 		}
 	}
 
 	return b;
 }
 template <class T3>
-T3* e2(T3* v, int n) {
-
-	return v;
+void e2(T3* v, int n) {
+	for (int i = 0; i < 10; i++) {
+		cout << v[i] << " ";
+	}
+	return;
 }
 template <class T3>
-T3* e3(T3* v, int n, T3* vv) {
+void e3(T3* v, int n, T3* vv) {
 
 	for (int i = 0; i < n; i++) {
 		v[i] = v[i] + vv[i];
 	}
-
-	return v;
+	for (int i = 0; i < 10; i++) {
+		cout << v[i] << " ";
+	}
+	return;
 }
 template <class T3>
-T3* e4(T3* v, int n, T3* vv) {
+void e4(T3* v, int n, T3* vv) {
 
 	for (int i = 0; i < n; i++) {
 		v[i] += vv[i];
 	}
+	for (int i = 0; i < 10; i++) {
+		cout << v[i] << " ";
+	}
 
-	return v;
+	return;
 }
 template <class T3>
-T3* e5(T3* v, int n, T3* vv) {
+void e5(T3* v, int n, T3* vv) {
 
 	for (int i = 0; i < n; i++) {
 		v[i] = v[i] - vv[i];
 	}
+	for (int i = 0; i < 10; i++) {
+		cout << v[i] << " ";
+	}
 
-	return v;
+	return;
 }
 template <class T3>
-T3* e6(T3* v, int n, T3* vv) {
+void e6(T3* v, int n, T3* vv) {
 
 	for (int i = 0; i < n; i++) {
 		v[i] -= vv[i];
 	}
+	for (int i = 0; i < 10; i++) {
+		cout << v[i] << " ";
+	}
 
-	return v;
+	return;
 }
 
 int main3()
@@ -329,6 +345,7 @@ int main3()
 	int V[] = { 1,2,3,4,5,5,6,7,8,9 };
 	int VV[] = { 9,8,7,6,5,5,4,3,2,1 };
 	float V1[] = { 1.1, 2.2, 3.3, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9 };
+	float VV1[] = { 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 };
 
 	Vec<int> a(), VecObj;
 
@@ -337,37 +354,78 @@ int main3()
 		cout << V[i] << " ";
 	}
 	cout << endl;
-
-	int* b[10];
-	*b = e(V, 10);
-	cout << "B: " << b << endl;
+	
+	cout << "VV: ";
+	for (int i = 0; i < 10; i++) {
+		cout << VV[i] << " ";
+	}
+	cout << endl;
 
 	int b1;
-	b1 = el(V, 10);
+	b1 = e1(V, 10);
 	if (b1 == -1) { cout << "No" << endl; }
 	else
 		cout << "[]: " << b1 << endl;
 
 
-	int* b2[10];
-	*b2 = e2(V, 10);
-	cout << "=: " << b2 << endl;
+	cout << "=: " << endl;
+	e2(V, 10);
 
-	int* b3[10];
-	*b3 = e3(V, 10, VV);
-	cout << "+: " << b3 << endl;
+	cout << "\n+: " << endl;
+	e3(V, 10, VV);
 
-	int* b4[10];
-	*b4 = e4(V, 10, VV);
-	cout << "+=: " << b4 << endl;
+	cout << "\n+=: " << endl;
+	e4(V, 10, VV);
 
-	int* b5[10];
-	*b5 = e5(V, 10, VV);
-	cout << "-: " << b5 << endl;
+	cout << "\n-: " << endl;
+	e5(V, 10, VV);
 
-	int* b6[10];
-	*b6 = e6(V, 10, VV);
-	cout << "-=: " << b6 << endl;
+	cout << "\n-=: " << endl;
+	e6(V, 10, VV);
+
+	cout << "\nB: " << endl;
+	e(V, 10);
+
+	cout << "\n\n";
+
+
+	cout << "V1: ";
+	for (int i = 0; i < 10; i++) {
+		cout << V1[i] << " ";
+	}
+	cout << endl;
+
+	cout << "VV1: ";
+	for (int i = 0; i < 10; i++) {
+		cout << VV1[i] << " ";
+	}
+	cout << endl;
+
+	int b2;
+	b2 = e1(V1, 10);
+	if (b2 == -1) { cout << "No" << endl; }
+	else
+		cout << "[]: " << b2 << endl;
+
+
+	cout << "=: " << endl;
+	e2(V1, 10);
+
+	cout << "\n+: " << endl;
+	e3(V1, 10, VV1);
+
+	cout << "\n+=: " << endl;
+	e4(V1, 10, VV1);
+
+	cout << "\n-: " << endl;
+	e5(V1, 10, VV1);
+
+	cout << "\n-=: " << endl;
+	e6(V1, 10, VV1);
+
+	cout << "\nB: " << endl;
+	e(V1, 10);
+
 
 	return 0;
 }
