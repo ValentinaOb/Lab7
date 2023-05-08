@@ -108,26 +108,26 @@ int main1()
 */
 
 template <class T1>
-T1* ell(T1 v[], int n) {
+void ell(T1 v[], int n) {
 	T1 a;
-	T1 t(10);
 
-	for (int i = 0; i < n - i; i++) {
-		if (v[i] > v[i + 1]) {
-			a = v[i];
-			v[i] = v[i + 1];
-			v[i + 1] = a;
+	for (int j = 1; j < n; j++)
+		for (int i = 0; i < n - j; i++) {
+			if (v[i] > v[i + 1]) {
+				a = v[i];
+				v[i] = v[i + 1];
+				v[i + 1] = a;
+			}
 		}
-	}
 
-	return v;
+	return;
 }
-char* ell1(char v[])
+void ell1(char v[])
 {
 	size_t S = sizeof(v) / sizeof(*v);
 	sort(v, v + S);
 
-	return v;
+	return;
 }
 int main2()
 {
@@ -153,17 +153,27 @@ int main2()
 	}
 	cout << endl;
 
-	int* b1[10] = {};
-	*b1 = ell(V, 10);
-	cout << "B: " << b1 << endl;
+	
+	ell(V, 10);
+	cout << "B: ";
+	for(auto r : V)
+	{
+		cout << r << "\n";
+	}
 
-	float* b11[10] = {};
-	*b11 = ell(V1, 10);
-	cout << "B1: " << b11 << endl;
+	ell(V1, 10);
+	cout << "\nB1: ";
+	for (auto r1 : V1)
+	{
+		cout << r1 << "\n";
+	}
 
-	char* b2[10]{};
-	*b2 = ell1(VV);
-	cout << "B2: " << b2 << endl;
+	ell1(VV);
+	cout << "\nB2: ";
+	for (auto r2 : VV)
+	{
+		cout << r2 << "\n";
+	}
 
 	return 0;
 }
@@ -173,6 +183,23 @@ int main2()
 Створити параметризований масив з конструкторами,
 деструктором і перевантаженими операторами [], =, +, +=,-,-=.
 */
+
+template <typename T3>
+class Vec {
+	T3 a[10];
+public:
+
+	T3 operator +(T3& b) {
+		T3 r;
+		for (int i = 0; i < 10; i++) {
+			r.a[i] = a[i] + b.a[i];
+			return r;
+		}
+	}
+
+
+};
+
 
 template <class T3>
 T3* e(T3* v, int n) {
@@ -241,11 +268,22 @@ T3* e6(T3* v, int n, T3* vv) {
 	return v;
 }
 
-int main3()
+int main3() {
+	Vec<int> a, b, c;
+	int V[] = { 1,2,3,4,5,5,6,7,8,9 };
+	a = b + c;
+
+	return 0;
+}
+
+
+int main0()
 {
 	int V[] = { 1,2,3,4,5,5,6,7,8,9 };
 	int VV[] = { 9,8,7,6,5,5,4,3,2,1 };
 	float V1[] = { 1.1, 2.2, 3.3, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9 };
+
+	Vec<int> a(), VecObj;
 
 	cout << "V: ";
 	for (int i = 0; i < 10; i++) {
