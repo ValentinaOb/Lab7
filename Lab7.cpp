@@ -208,7 +208,7 @@ public:
 		cin >> k;
 
 		for (int i = 0; i < n; i++) {
-			if (v[i] == k) {
+			if (a[i] == k) {
 				l = a[i];
 			}
 		}
@@ -250,7 +250,7 @@ public:
 
 };
 
-int main3() {
+int main0() {
 	Vec<int> a, b, c;
 	int V[] = { 1,2,3,4,5,5,6,7,8,9 };
 
@@ -324,7 +324,7 @@ T3* e6(T3* v, int n, T3* vv) {
 	return v;
 }
 
-int main0()
+int main3()
 {
 	int V[] = { 1,2,3,4,5,5,6,7,8,9 };
 	int VV[] = { 9,8,7,6,5,5,4,3,2,1 };
