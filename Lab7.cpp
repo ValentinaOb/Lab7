@@ -182,6 +182,17 @@ int main2()
 деструктором і перевантаженими операторами [], =, +, +=,-,-=.
 */
 
+
+template <class T3>
+void e0(T3* v, int n) {
+	T3 b[10];
+	for (int i = 0; i < n; i++) {
+		b[i] = 0;
+		cout << b[i] << " ";
+	}
+
+	return;
+}
 template <class T3>
 void e(T3* v, int n) {
 
@@ -197,7 +208,7 @@ int e1(T3* v, int n) {
 
 	T3 k;
 	int b = -1;
-	cout << "Input k: ";
+	cout << "\nInput k: ";
 	cin >> k;
 
 	for (int i = 0; i < n; i++) {
@@ -281,6 +292,9 @@ int main3()
 	}
 	cout << endl;
 
+	cout << ": " << endl;
+	e0(V, 10);
+
 	int b1;
 	b1 = e1(V, 10);
 	if (b1 == -1) { cout << "No" << endl; }
@@ -320,6 +334,9 @@ int main3()
 		cout << VV1[i] << " ";
 	}
 	cout << endl;
+
+	cout << ": " << endl;
+	e0(VV, 10);
 
 	int b2;
 	b2 = e1(V1, 10);
